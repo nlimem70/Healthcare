@@ -703,6 +703,184 @@
     color: rgba(255, 255, 255, 0.6);
   }
 
+  /* ===== WhatsApp widget ===== */
+  .wa-widget {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 150;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 14px;
+  }
+
+  .wa-toggle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #25D366;
+    border: 1.5px solid var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    flex-shrink: 0;
+  }
+  .wa-toggle:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+  .wa-toggle:active { transform: translate(0, 0); box-shadow: 1px 1px 0 var(--ink); }
+  .wa-toggle:focus-visible { outline: 3px solid var(--pine); outline-offset: 3px; }
+
+  .wa-toggle-ring {
+    position: absolute;
+    inset: -1.5px;
+    border-radius: 50%;
+    border: 2px solid #25D366;
+    animation: waPulse 2.2s ease-out infinite;
+    pointer-events: none;
+  }
+  .wa-toggle-ring::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid #25D366;
+    animation: waPulse 2.2s ease-out 1.1s infinite;
+  }
+
+  @keyframes waPulse {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+
+  .wa-widget.open .wa-toggle-ring,
+  .wa-widget.open .wa-toggle-ring::after { animation-play-state: paused; opacity: 0; }
+
+  .wa-panel {
+    width: min(320px, calc(100vw - 40px));
+    background: var(--paper-card);
+    border: 1.5px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 6px 6px 0 var(--line-strong);
+    overflow: hidden;
+    transform-origin: bottom right;
+    transform: scale(0.92) translateY(12px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  }
+  .wa-widget.open .wa-panel {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .wa-panel-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--pine-deep);
+    color: #fff;
+  }
+  .wa-panel-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1.5px dashed rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .wa-panel-title { font-weight: 700; font-size: 0.98rem; }
+  .wa-panel-sub {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 2px;
+  }
+  .wa-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #25D366;
+    flex-shrink: 0;
+  }
+  .wa-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    flex-shrink: 0;
+  }
+  .wa-close:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+
+  .wa-panel-body { padding: 16px; }
+
+  .wa-bubble {
+    background: var(--paper);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  .wa-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .wa-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+    background: var(--paper);
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  }
+  .wa-chip:hover { border-color: var(--pine); background: var(--pine-pale); transform: translateX(2px); }
+  .wa-chip:focus-visible { outline: 3px solid var(--pine); outline-offset: 2px; }
+
+  .wa-start {
+    display: flex;
+    width: calc(100% - 32px);
+    margin: 4px 16px 16px;
+    background: #25D366;
+    border-color: var(--ink);
+    color: #fff;
+  }
+  .wa-start:hover { background: #1FA855; }
+
+  @media (max-width: 420px) {
+    .wa-widget { right: 14px; bottom: 14px; }
+    .wa-toggle { width: 54px; height: 54px; }
+  }
+
   /* ===== Fade-in on scroll ===== */
   .fade-in {
     opacity: 0;
@@ -722,6 +900,7 @@
       transition: none;
     }
     .ticket { animation: none; }
+    .wa-toggle-ring, .wa-toggle-ring::after { animation: none; opacity: 0; }
   }
 
   .sr-only {
@@ -996,7 +1175,7 @@
               </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit Request</button>
+            <button type="submit" id="submitBtn" class="btn btn-primary">Submit Request</button>
           </form>
         </div>
       </div>
@@ -1058,6 +1237,43 @@
     </div>
   </div>
 </footer>
+
+<!-- ===================== WHATSAPP CHAT WIDGET ===================== -->
+<div class="wa-widget" id="waWidget">
+  <div class="wa-panel" id="waPanel" role="dialog" aria-label="Chat with Harborview Clinic on WhatsApp" aria-hidden="true">
+    <div class="wa-panel-head">
+      <span class="wa-panel-avatar" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.7-10-9.3C.4 8.1 2.2 4 6.1 4c2.1 0 3.6 1.1 4.4 2.4C11.3 5.1 12.8 4 14.9 4 18.8 4 20.6 8.1 19 11.7 16.5 16.3 12 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </span>
+      <div>
+        <div class="wa-panel-title">Harborview Clinic</div>
+        <div class="wa-panel-sub"><span class="wa-dot" aria-hidden="true"></span>Usually replies within minutes</div>
+      </div>
+      <button type="button" class="wa-close" id="waClose" aria-label="Close chat">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="wa-panel-body">
+      <p class="wa-bubble">👋 Hi! How can we help today? Pick a quick question, or start a chat with our team.</p>
+      <div class="wa-suggestions">
+        <button type="button" class="wa-chip" data-msg="Hi! I'd like to book an appointment.">📅 Book an appointment</button>
+        <button type="button" class="wa-chip" data-msg="Hi! What are your clinic hours?">🕒 What are your clinic hours?</button>
+        <button type="button" class="wa-chip" data-msg="Hi! Do you accept walk-ins for urgent care?">🏥 Do you accept walk-ins?</button>
+        <button type="button" class="wa-chip" data-msg="Hi! I have a question about insurance coverage.">💳 Ask about insurance</button>
+      </div>
+    </div>
+
+    <a href="#" class="btn wa-start" id="waStart" target="_blank" rel="noopener">Start WhatsApp Chat</a>
+  </div>
+
+  <button type="button" class="wa-toggle" id="waToggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="waPanel" aria-label="Chat with us on WhatsApp">
+    <span class="wa-toggle-ring" aria-hidden="true"></span>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path fill="#fff" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.79.47 3.47 1.29 4.94L2 22l5.29-1.39a9.87 9.87 0 004.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.06c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.38.24-.26.53-.33.7-.33h.5c.16 0 .38-.02.58.44.24.55.79 1.9.86 2.04.07.14.11.3.02.49-.09.19-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.89 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.27.37-.22.63-.13.26.09 1.63.77 1.91.91.28.14.47.21.54.33.07.12.07.68-.17 1.35z"/>
+    </svg>
+  </button>
+</div>
 
 <script>
 (function () {
@@ -1195,16 +1411,101 @@
       message: messageInput.value.trim()
     };
 
-    // TODO: replace this with a real API call, e.g.:
-    // fetch('/api/appointments', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(formData)
-    // });
-    console.log('Appointment request submitted:', formData);
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
 
-    showStatus('success', "Thank you! We'll contact you shortly to confirm your appointment.");
-    form.reset();
+    fetch('https://formsubmit.co/ajax/nlimem70@gmail.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        preferredDate: formData.preferredDate,
+        message: formData.message,
+        _subject: 'New appointment request — Harborview Family Clinic'
+      })
+    })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Request failed');
+        return response.json();
+      })
+      .then(function () {
+        showStatus('success', "Thank you! We'll contact you shortly to confirm your appointment.");
+        form.reset();
+      })
+      .catch(function () {
+        showStatus('error', "Sorry, something went wrong sending your request. Please call us instead.");
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit Request';
+      });
+  });
+
+  /* ---------- WhatsApp chat widget ---------- */
+  var WA_NUMBER = '6598228687';
+  var WA_DEFAULT_MSG = "Hi! I'd like to know more about Harborview Family Clinic.";
+
+  var waWidget = document.getElementById('waWidget');
+  var waToggle = document.getElementById('waToggle');
+  var waPanel = document.getElementById('waPanel');
+  var waClose = document.getElementById('waClose');
+  var waStart = document.getElementById('waStart');
+
+  function waLink(message) {
+    return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(message);
+  }
+
+  waStart.href = waLink(WA_DEFAULT_MSG);
+
+  function openWaPanel() {
+    waWidget.classList.add('open');
+    waToggle.setAttribute('aria-expanded', 'true');
+    waPanel.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeWaPanel() {
+    waWidget.classList.remove('open');
+    waToggle.setAttribute('aria-expanded', 'false');
+    waPanel.setAttribute('aria-hidden', 'true');
+  }
+
+  waToggle.addEventListener('click', function () {
+    if (waWidget.classList.contains('open')) {
+      closeWaPanel();
+    } else {
+      openWaPanel();
+    }
+  });
+
+  waClose.addEventListener('click', function () {
+    closeWaPanel();
+    waToggle.focus();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && waWidget.classList.contains('open')) {
+      closeWaPanel();
+      waToggle.focus();
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (waWidget.classList.contains('open') && !waWidget.contains(e.target)) {
+      closeWaPanel();
+    }
+  });
+
+  waWidget.querySelectorAll('.wa-chip').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var msg = chip.getAttribute('data-msg') || WA_DEFAULT_MSG;
+      window.open(waLink(msg), '_blank', 'noopener');
+    });
   });
 
 }());
