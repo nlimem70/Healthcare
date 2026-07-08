@@ -13,7 +13,8 @@ Everything — markup, styles, and behavior — lives in one self-contained [ind
 - Sticky navbar with a mobile hamburger menu
 - Hero section with a booking call-to-action
 - Services grid, patient testimonial cards, and a footer
-- An appointment enquiry form with client-side validation (no backend — form data is logged to the console on submit)
+- An appointment enquiry form with client-side validation that submits directly to [formsubmit.co](https://formsubmit.co) (no custom backend)
+- A floating WhatsApp chat widget (bottom-right) with a pulsing button and quick-reply suggestions that deep-link into WhatsApp with a prefilled message
 
 ## Running locally
 
